@@ -25,8 +25,6 @@ app.use('/auth' ,authRoute)
 
 app.use(jwtMid)
 
-console.log(process.env.JWT_SECRET);
-
 app.listen(PORT ,() => {
-    console.log(`Express server listening on port ${PORT}`);
+    console.log(`Express server listening on http://localhost:${PORT}`);
 })

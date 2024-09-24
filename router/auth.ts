@@ -8,6 +8,8 @@ import { UserArray, UserAuth ,User } from "../types/model.type";
 
 const authRoute = express.Router();
 
+var token = ""
+
 authRoute.post("/login" ,(request: Request ,response: Response ,next: NextFunction) => {
     const {
         id,
@@ -25,7 +27,7 @@ authRoute.post("/login" ,(request: Request ,response: Response ,next: NextFuncti
 
         const user: User = result[0]
 
-        const token = generateToken({
+        token = generateToken({
             id: user?.id,
             name: user?.name
         })
@@ -37,9 +39,11 @@ authRoute.post("/login" ,(request: Request ,response: Response ,next: NextFuncti
 })
 
 authRoute.get("/session", (request: Request ,response: Response) => {
-    response.json({
-        token: request.user
-    })
+    const verifyToken_ = verifyToken(token);
+    if (!verifyToken_) {
+        return response.sendStatus(401)
+    }
+    return response.sendStatus(200)
 })
 
 export {authRoute}
