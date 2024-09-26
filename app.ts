@@ -7,6 +7,7 @@ import express from "express"
 import cors from 'cors'
 import {router} from "./router/user"
 import {authRoute} from './router/auth'
+import { mailRoute } from "./router/mail"
 import {jwtMid} from "./middleware/jwt.mid"
 import "dotenv/config"
 
@@ -22,6 +23,7 @@ app.use(morgan("dev"))
 
 app.use('/user' ,router)
 app.use('/auth' ,authRoute)
+app.use('/mail' ,mailRoute)
 
 app.use(jwtMid)
 
